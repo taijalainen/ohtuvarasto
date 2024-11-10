@@ -1,19 +1,21 @@
 from varasto import Varasto
 
 
-def main():
+def luo_varastot():
     mehua = Varasto(100.0)
     olutta = Varasto(100.0, 20.2)
-
     print("Luonnin jälkeen:")
     print(f"Mehuvarasto: {mehua}")
     print(f"Olutvarasto: {olutta}")
+    return mehua, olutta
 
-    print("Olut getterit:")
-    print(f"saldo = {olutta.saldo}")
-    print(f"tilavuus = {olutta.tilavuus}")
-    print(f"paljonko_mahtuu = {olutta.paljonko_mahtuu()}")
+def nayta_getterit(varasto, nimi):
+    print(f"{nimi} getterit:")
+    print(f"saldo = {varasto.saldo}")
+    print(f"tilavuus = {varasto.tilavuus}")
+    print(f"paljonko_mahtuu = {varasto.paljonko_mahtuu()}")
 
+def mehu_setterit(mehua):
     print("Mehu setterit:")
     print("Lisätään 50.7")
     mehua.lisaa_varastoon(50.7)
@@ -22,37 +24,38 @@ def main():
     mehua.ota_varastosta(3.14)
     print(f"Mehuvarasto: {mehua}")
 
+def virhetilanteet():
     print("Virhetilanteita:")
     print("Varasto(-100.0);")
     huono = Varasto(-100.0)
     print(huono)
-
     print("Varasto(100.0, -50.7)")
     huono = Varasto(100.0, -50.7)
     print(huono)
 
-    print(f"Olutvarasto: {olutta}")
-    print("olutta.lisaa_varastoon(1000.0)")
-    olutta.lisaa_varastoon(1000.0)
-    print(f"Olutvarasto: {olutta}")
+def varaston_toiminnot(varasto, nimi):
+    print(f"{nimi}: {varasto}")
+    print(f"{nimi}.lisaa_varastoon(1000.0)")
+    varasto.lisaa_varastoon(1000.0)
+    print(f"{nimi}: {varasto}")
+    print(f"{nimi}.lisaa_varastoon(-666.0)")
+    varasto.lisaa_varastoon(-666.0)
+    print(f"{nimi}: {varasto}")
 
-    print(f"Mehuvarasto: {mehua}")
-    print("mehua.lisaa_varastoon(-666.0)")
-    mehua.lisaa_varastoon(-666.0)
-    print(f"Mehuvarasto: {mehua}")
-
-    print(f"Olutvarasto: {olutta}")
-    print("olutta.ota_varastosta(1000.0)")
-    saatiin = olutta.ota_varastosta(1000.0)
+def varaston_otto(varasto, nimi, maara):
+    print(f"{nimi}.ota_varastosta({maara})")
+    saatiin = varasto.ota_varastosta(maara)
     print(f"saatiin {saatiin}")
-    print(f"Olutvarasto: {olutta}")
+    print(f"{nimi}: {varasto}")
 
-    print(f"Mehuvarasto: {mehua}")
-    print("mehua.otaVarastosta(-32.9)")
-    saatiin = mehua.ota_varastosta(-32.9)
-    print(f"saatiin {saatiin}")
-    print(f"Mehuvarasto: {mehua}")
-
+def main():
+    mehua, olutta = luo_varastot()
+    nayta_getterit(olutta, "Olutvarasto")
+    mehu_setterit(mehua)
+    virhetilanteet()
+    varaston_toiminnot(olutta, "Olutvarasto")
+    varaston_otto(olutta, "Olutvarasto", 1000.0)
+    varaston_otto(mehua, "Mehuvarasto", -32.9)
 
 if __name__ == "__main__":
     main()
